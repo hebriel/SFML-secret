@@ -1,99 +1,87 @@
-#include <iostream>
-#include <vector>
-#include <iterator>
-#include <algorithm>
-#include <math.h>
-#include <stdlib.h>  
-#include <array>
 
-#include <SFML/Graphics.hpp>
+/**GRAPHICS**/
 
-#include "vector2.h"
-#include "triangle.h"
-#include "delaunay.h"
+#include <SFML/Graphics.hpp> //SFML
 
-float RandomFloat(float a, float b) {
-    float random = ((float) rand()) / (float) RAND_MAX;
-    float diff = b - a;
-    float r = random * diff;
-    return a + r;
-}
+/**STANTARD LIBS**/
+
+#include <random> //RANDOM
+#include <time.h> //TIME
+#include <vector> //VECTOR
+
+/**DELAUNAY TRIANGULATION - FORK FROM Bl4ckb0ne WORK**/
+
+#include <vector2.h>
+#include <triangle.h>
+#include <delaunay.h>
+
+/**A LIBRARY TO CONVERT SOME ORIGINAL DATA TO SFML DATA**/
+
+#include <VecToVec.hpp>
+
+/*---*/
+
 
 int main()
 {
-	srand (time(NULL));
-	float numberPoints = roundf(RandomFloat(4, 40));
+    // Create the main window
 
-	std::cout << "Generating " << numberPoints << " random points" << std::endl;
 
-	std::vector<Vec2f> points;
-	for(int i = 0; i < numberPoints; i++) {
-		points.push_back(Vec2f(RandomFloat(0, 800), RandomFloat(0, 600)));
-	}
+    sf::RenderWindow app(sf::VideoMode(800, 600), "SFML window");
 
-	Delaunay triangulation;
-	std::vector<Triangle> triangles = triangulation.triangulate(points);
-	std::cout << triangles.size() << " triangles generated\n";
-	std::vector<Edge> edges = triangulation.getEdges();
-	
-	std::cout << " ========= ";
-	
-	std::cout << "\nPoints : " << points.size() << std::endl;
-	for(auto &p : points)
-		std::cout << p << std::endl;
-	
-	std::cout << "\nTriangles : " << triangles.size() << std::endl;
-	for(auto &t : triangles)
-		std::cout << t << std::endl;
+    Delaunay triangulation; //TRIANGULATION IS A "Delaunay" OBJECT
 
-	std::cout << "\nEdges : " << edges.size() << std::endl;
-	for(auto &e : edges)
-		std::cout << e << std::endl;
-			
-	// SFML window
-    	sf::RenderWindow window(sf::VideoMode(800, 600), "Delaunay triangulation");
+    srand(time(NULL)); //SETTING RANDOM SEED
 
-	// Transform each points of each vector as a rectangle
-	std::vector<sf::RectangleShape*> squares;
+    std::vector< Vector2<float> > sites(30); //DECLARING POINTS
 
-	for(auto p = begin(points); p != end(points); p++) {
-		sf::RectangleShape *c1 = new sf::RectangleShape(sf::Vector2f(4, 4));
-		c1->setPosition(p->x, p->y);
-		squares.push_back(c1);
-	}
-	
-	// Make the lines
-	std::vector<std::array<sf::Vertex, 2> > lines;
-	for(auto e = begin(edges); e != end(edges); e++) {
-		lines.push_back({{
-			sf::Vertex(sf::Vector2f((*e).p1.x + 2, (*e).p1.y + 2)),	
-			sf::Vertex(sf::Vector2f((*e).p2.x + 2, (*e).p2.y + 2))	
-		}});
-	}
- 
-	while (window.isOpen())
-	{
-	        sf::Event event;
-	        while (window.pollEvent(event))
-	        {
-	            if (event.type == sf::Event::Closed)
-	                window.close();
-	        }
-	
-	        window.clear();
-	
-		// Draw the squares
-		for(auto s = begin(squares); s != end(squares); s++) {
-			window.draw(**s);
-		}
-	
-		// Draw the lines
-		for(auto l = begin(lines); l != end(lines); l++) {
-			window.draw((*l).data(), 2, sf::Lines);
-		}
-	       	
-		window.display();
-	}
-	
-	return 0;
+    for(unsigned int i = 0; i < sites.size(); ++i)
+    {
+        sites[i].x = rand() % 700 + 50;
+        sites[i].y = rand() % 500 + 50;
+    }
+
+    triangulation.triangulate(sites);
+    std::vector<Edge> edges = triangulation.getEdges();
+    std::vector<sf::VertexArray> lines(edges.size());
+
+    for(unsigned int i = 0; i < edges.size(); ++i)
+    {
+        lines[i] = toVertexArray(edges[i]);
+    }
+
+
+    sf::RectangleShape shp(sf::Vector2f(4, 4));
+
+	// Start the game loop
+    while (app.isOpen())
+    {
+        // Process events
+        sf::Event event;
+        while (app.pollEvent(event))
+        {
+            // Close window : exit
+            if (event.type == sf::Event::Closed)
+                app.close();
+        }
+
+        // Clear screen
+        app.clear();
+
+        for(unsigned int i = 0; i < sites.size(); ++i)
+        {
+            shp.setPosition(toSfVector(Vector2<float>(sites[i])));
+            app.draw(shp);
+        }
+
+        for(unsigned int i = 0; i < lines.size(); ++i)
+        {
+            app.draw(lines[i]);
+        }
+
+        // Update the window
+        app.display();
+    }
+
+    return EXIT_SUCCESS;
 }

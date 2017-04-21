@@ -1,0 +1,122 @@
+# depslib dependency file v1.0
+1492739292 source:/home/haestiaa/Bureau/dev/sfVoro/main.cpp
+	<SFML/Graphics.hpp>
+	<random>
+	<time.h>
+	<vector>
+	<vector2.h>
+	<triangle.h>
+	<delaunay.h>
+
+1485385420 source:/home/haestiaa/Bureau/dev/sfVoro/src/BeachLine.cpp
+	"../include/VoronoiDiagramGenerator.h"
+	<SFML/System/Vector2.hpp>
+	"BeachLine.h"
+	"../include/Cell.h"
+	"Epsilon.h"
+	<vector>
+	<forward_list>
+	<limits>
+
+1485385420 /home/haestiaa/Bureau/dev/sfVoro/include/VoronoiDiagramGenerator.h
+	"../src/RBTree.h"
+	"../src/CircleEventQueue.h"
+	"../src/BeachLine.h"
+	"Diagram.h"
+	<vector>
+
+1485385420 /home/haestiaa/Bureau/dev/sfVoro/src/RBTree.h
+	"MemoryPool/C-11/MemoryPool.h"
+	<iostream>
+
+1485385420 /home/haestiaa/Bureau/dev/sfVoro/src/MemoryPool/C-11/MemoryPool.h
+	<climits>
+	<cstddef>
+	<cstdint>
+	<type_traits>
+	<algorithm>
+	"MemoryPool.tcc"
+
+1485385420 /home/haestiaa/Bureau/dev/sfVoro/src/MemoryPool/C-11/MemoryPool.tcc
+
+1485385420 /home/haestiaa/Bureau/dev/sfVoro/src/CircleEventQueue.h
+	"RBTree.h"
+	"BeachLine.h"
+
+1485385420 /home/haestiaa/Bureau/dev/sfVoro/src/BeachLine.h
+	"RBTree.h"
+
+1485385420 /home/haestiaa/Bureau/dev/sfVoro/include/Diagram.h
+	"../src/MemoryPool/C-11/MemoryPool.h"
+	"Edge.h"
+	"Cell.h"
+	<set>
+
+1485385420 /home/haestiaa/Bureau/dev/sfVoro/include/Edge.h
+	<SFML/System/Vector2.hpp>
+
+1485385420 /home/haestiaa/Bureau/dev/sfVoro/include/Cell.h
+	<SFML/System/Vector2.hpp>
+	<SFML/Graphics/Rect.hpp>
+	<vector>
+
+1485385420 /home/haestiaa/Bureau/dev/sfVoro/src/Epsilon.h
+	<cmath>
+
+1485385420 source:/home/haestiaa/Bureau/dev/sfVoro/src/Cell.cpp
+	"../include/Cell.h"
+	"../include/Edge.h"
+	<algorithm>
+	<limits>
+
+1485385420 source:/home/haestiaa/Bureau/dev/sfVoro/src/CircleEventQueue.cpp
+	<SFML/System/Vector2.hpp>
+	"CircleEventQueue.h"
+	"../include/Cell.h"
+	<cmath>
+
+1485385420 source:/home/haestiaa/Bureau/dev/sfVoro/src/Diagram.cpp
+	"../include/Diagram.h"
+	"../include/VoronoiDiagramGenerator.h"
+	"Epsilon.h"
+	<iostream>
+	<algorithm>
+
+1485385420 source:/home/haestiaa/Bureau/dev/sfVoro/src/Edge.cpp
+	"../include/Edge.h"
+	"../include/Cell.h"
+	<cmath>
+
+1492653703 source:/home/haestiaa/Bureau/dev/sfVoro/src/vo.cpp
+	"vo.h"
+
+1492654507 /home/haestiaa/Bureau/dev/sfVoro/include/vo.h
+	<SFML/Graphics.hpp>
+	<vector>
+
+1475801797 source:/home/haestiaa/Bureau/dev/sfVoro/src/delaunay.cpp
+	"delaunay.h"
+	<algorithm>
+
+1475801797 /home/haestiaa/Bureau/dev/sfVoro/include/delaunay.h
+	"vector2.h"
+	"triangle.h"
+	<vector>
+
+1475801797 /home/haestiaa/Bureau/dev/sfVoro/include/vector2.h
+	<iostream>
+	<cmath>
+
+1475801797 /home/haestiaa/Bureau/dev/sfVoro/include/triangle.h
+	"vector2.h"
+	"edge.h"
+
+1475801797 /home/haestiaa/Bureau/dev/sfVoro/include/edge.h
+	"vector2.h"
+
+1475801797 source:/home/haestiaa/Bureau/dev/sfVoro/src/triangle.cpp
+	"triangle.h"
+	<assert.h>
+	<math.h>
+	"delaunay.h"
+
